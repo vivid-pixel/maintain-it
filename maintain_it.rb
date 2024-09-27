@@ -6,19 +6,15 @@ require_relative 'record.rb'
 
 
 def main
-  # for testing only
+  # Get the same "random" number (development only)
   Kernel.srand(1)
 
   show_header('Welcome to "Maintain It" -- a vehicle maintenance tracker')
 
-  puts "Loading sample data"
   Vehicle.load_vehicles
   Record.load_records
 
-  puts "What about...show one specific vehicle? ID 87708"
-  #Vehicle.search_vehicles(87708)
-
-  #puts Vehicle.search_vehicles
+  # puts Vehicle.search_vehicles
   Record.search_records(87708)
   Record.search_records(15192)
 
@@ -35,7 +31,7 @@ end
 
 def show_message(contents)
   edge = "***"
-  puts edge + contents + edge
+  puts "#{edge} #{contents} #{edge}"
 end
 
 

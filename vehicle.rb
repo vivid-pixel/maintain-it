@@ -30,9 +30,8 @@ class Vehicle
           show_message("No vehicle ID specified. Displaying ALL vehicles.")
           puts @@vehicles
         else
-          show_message("Found vehicle ID# #{id}")
+          show_message("Found vehicle ID #{id}")
           puts @@vehicles.select { |vehicle| vehicle[:id] == id }
-          # puts @@vehicles
         end
       end
   end
@@ -41,31 +40,31 @@ class Vehicle
   def self.load_vehicles
     # If a file exists, parse contents into the vehicles array
     if File.exist?(@@json_filename)
-      show_message('Vehicles exist. Loading now')
+      show_message('Loading existing vehicles.')
       json_contents = JSON.parse(File.open(@@json_filename, 'r').read, :symbolize_names => true)
 
       json_contents.each do |vehicle|
-        puts "Vehicle test: #{vehicle}"
         @@vehicles << vehicle
+        puts "Vehicle loaded: #{vehicle}"
       end
     else
       # If there are no stored vehicles, let's create them.
-      show_message('No vehicles found. Generating')
       Vehicle.new(2002, 'Ford', 'Ranger')
       Vehicle.new(2004, 'BMW', 'Z4')
+      show_message('Vehicles have been created.')
     end
   end
 
 
   def self.save_vehicles
-    show_message('Exporting list of vehicles to JSON')
+    show_message('Exporting vehicles to JSON.')
 
     json_contents = JSON.pretty_generate(@@vehicles)
 
     if File.write(@@json_filename, json_contents)
-      show_message('Export Complete!')
+      show_message('Export Success')
     else
-      show_message('Export FAILED')
+      show_message('ERROR: Export Failure')
     end
   end
 end
